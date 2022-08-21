@@ -1,0 +1,10 @@
+.card__title-wrapper {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 22px 20px 22px 21px;
+  justify-content: space-between;
+  height: 79px;
+  box-sizing: border-box;
+  z-index: 100;
+}

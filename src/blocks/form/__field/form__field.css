@@ -1,0 +1,5 @@
+.form__field {
+  display: flex;
+  flex-direction: column;
+  min-height: 58px;
+}
