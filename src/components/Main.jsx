@@ -1,10 +1,12 @@
 import React from 'react';
 import { api } from '../utils/api';
+import Card from './Card';
 
 const Main = ({ onEditProfile, onAddPlace, onEditAvatar }) => {
   const [userName, setUserName] = React.useState('');
   const [userDescription, setUserDescription] = React.useState('');
   const [userAvatar, setUserAvatar] = React.useState('');
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
     api
@@ -17,6 +19,10 @@ const Main = ({ onEditProfile, onAddPlace, onEditAvatar }) => {
       .catch((err) => {
         console.log(err);
       });
+  }, []);
+
+  React.useEffect(() => {
+    api.getCards().then((res) => setCards(...cards, res));
   }, []);
 
   return (
@@ -40,7 +46,11 @@ const Main = ({ onEditProfile, onAddPlace, onEditAvatar }) => {
       </section>
 
       <section className="places">
-        <ul className="places__cards-list"></ul>
+        <ul className="places__cards-list">
+          {cards.map((card) => (
+            <Card name={card.name} key={card._id} link={card.link} likesCount={card.likes.length} />
+          ))}
+        </ul>
       </section>
     </main>
   );

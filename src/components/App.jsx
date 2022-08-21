@@ -56,8 +56,8 @@ function App() {
                   name="name"
                   placeholder="Введите ваше имя"
                   required
-                  minlength="2"
-                  maxlength="20"
+                  minLength="2"
+                  maxLength="20"
                 />
                 <span className="form__item-error profile-name-input-error"></span>
               </label>
@@ -69,8 +69,8 @@ function App() {
                   name="about"
                   placeholder="Введите ваш статус"
                   required
-                  minlength="2"
-                  maxlength="200"
+                  minLength="2"
+                  maxLength="200"
                 />
                 <span className="form__item-error profile-status-input-error"></span>
               </label>
@@ -93,8 +93,8 @@ function App() {
                   name="title"
                   placeholder="Название"
                   required
-                  minlength="2"
-                  maxlength="30"
+                  minLength="2"
+                  maxLength="30"
                 />
                 <span className="form__item-error place-name-input-error"></span>
               </label>
