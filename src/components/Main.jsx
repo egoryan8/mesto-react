@@ -19,10 +19,11 @@ const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
 
-  React.useEffect(() => {
-    api.getCards().then((res) => setCards(...cards, res));
+    api
+      .getCards()
+      .then((res) => setCards(...cards, res))
+      .catch((err) => console.log(err));
   }, []);
 
   return (
