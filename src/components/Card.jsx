@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Card = ({ link, name, likesCount }) => {
+const Card = ({ link, name, likesCount, onCardClick, card }) => {
   return (
     <li className="card">
-      <img src={link} alt={name} className="card__image" />
+      <img src={link} alt={name} className="card__image" onClick={() => onCardClick(card)} />
       <button type="button" className="card__delete-btn"></button>
       <div className="card__title-wrapper">
         <h2 className="card__title">{name}</h2>

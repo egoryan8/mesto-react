@@ -1,8 +1,10 @@
-import Header from './Header';
 import React from 'react';
+
+import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
 
 import '../index.css';
 
@@ -11,7 +13,12 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
 
+  const handleCardClick = (card) => {
+    setSelectedCard(card);
+    setIsImagePopupOpen(true);
+  };
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
   };
@@ -29,6 +36,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsImagePopupOpen(false);
+    setSelectedCard({});
   };
   return (
     <div className="root">
@@ -38,6 +46,7 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
+          onCardClick={handleCardClick}
         />
         <Footer />
         <PopupWithForm
@@ -134,21 +143,7 @@ function App() {
             </fieldset>
           }
         />
-
-        <div className="popup popup_you-sure">
-          <div className="popup__container">
-            <h3 className="popup__title">Вы уверены?</h3>
-            <form className="form form_you-sure">
-              <button type="submit" name="sure__yes" value="Да" className="form__save-btn">
-                Да
-              </button>
-            </form>
-            <button
-              className="popup__close-btn"
-              type="button"
-              aria-label="Закрыть добавление"></button>
-          </div>
-        </div>
+        <ImagePopup onClose={closeAllPopups} card={selectedCard} isOpen={isImagePopupOpen} />
       </div>
     </div>
   );
