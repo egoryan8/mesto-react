@@ -1,10 +1,10 @@
 import React from 'react';
 
-const PopupWithForm = ({ title, name, isOpen, onClose, buttonText, children }) => {
+const PopupWithForm = ({ title, name, isOpen, onClose, buttonText, children, onSubmit }) => {
   return (
     <div className={`popup popup_${name} ${isOpen ? 'popup_opened' : ''}`}>
       <div className="popup__container">
-        <form className={`form form_${name}`} name={`${name}-form`} noValidate>
+        <form className={`form form_${name}`} name={`${name}-form`} onSubmit={onSubmit} noValidate>
           <h3 className="form__title">{title}</h3>
           {children}
           <button type="submit" name="profile__save" value="Сохранить" className="form__save-btn">

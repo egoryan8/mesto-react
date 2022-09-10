@@ -22,13 +22,13 @@ export default class Api {
     return this._profileInfo;
   }
 
-  setProfile(obj) {
+  setProfile(name, about) {
     this._settedProfile = fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: obj.name,
-        about: obj.about,
+        name: name,
+        about: about,
       }),
     }).then(this._handleServerResponse);
     return this._settedProfile;
