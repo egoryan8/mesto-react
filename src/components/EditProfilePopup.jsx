@@ -52,6 +52,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
             minLength="2"
             maxLength="200"
             value={about}
+            onChange={(e) => setAbout(e.target.value)}
           />
           <span className="form__item-error profile-status-input-error"></span>
         </label>
