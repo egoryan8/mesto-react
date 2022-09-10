@@ -61,13 +61,13 @@ export default class Api {
     return this._deleteLike;
   }
 
-  addCard(obj) {
+  addCard(title, link) {
     this._addedCard = fetch(`${this._url}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
-        name: obj.title,
-        link: obj.link,
+        name: title,
+        link: link,
       }),
     }).then(this._handleServerResponse);
     return this._addedCard;
