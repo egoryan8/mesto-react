@@ -34,12 +34,12 @@ export default class Api {
     return this._settedProfile;
   }
 
-  setAvatar(obj) {
+  setAvatar(avatar) {
     this._newAvatar = fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: obj.avatar,
+        avatar,
       }),
     }).then(this._handleServerResponse);
     return this._newAvatar;

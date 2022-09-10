@@ -10,6 +10,7 @@ import CurrentUserContext from '../contexts/CurrentUserContext';
 
 import '../index.css';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -59,6 +60,16 @@ function App() {
       })
       .catch((err) => console.log(err));
   };
+
+  const handleUpdateAvatar = (avatar) => {
+    api
+      .setAvatar(avatar)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
@@ -75,6 +86,11 @@ function App() {
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
+          />
+          <EditAvatarPopup
+            isOpen={isEditAvatarPopupOpen}
+            onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
           />
           <PopupWithForm
             title="Новое место"
@@ -109,26 +125,7 @@ function App() {
               </label>
             </fieldset>
           </PopupWithForm>
-          <PopupWithForm
-            title="Обновить аватар"
-            name="edit-avatar"
-            onClose={closeAllPopups}
-            isOpen={isEditAvatarPopupOpen}
-            buttonText="Сохранить">
-            <fieldset className="form__set" id="profile__edit-avatar-fields">
-              <label className="form__field">
-                <input
-                  type="url"
-                  className="form__item"
-                  id="edit-avatar-url"
-                  name="avatar"
-                  placeholder="Введите ссылку"
-                  required
-                />
-                <span className="form__item-error edit-avatar-url-input-error"></span>
-              </label>
-            </fieldset>
-          </PopupWithForm>
+
           <ImagePopup onClose={closeAllPopups} card={selectedCard} isOpen={isImagePopupOpen} />
         </div>
       </div>
