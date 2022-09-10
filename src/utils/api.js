@@ -45,16 +45,16 @@ export default class Api {
     return this._newAvatar;
   }
 
-  addLike(obj) {
-    this._like = fetch(`${this._url}/cards/${obj._id}/likes`, {
+  addLike(id) {
+    this._like = fetch(`${this._url}/cards/${id}/likes`, {
       method: 'PUT',
       headers: this._headers,
     }).then(this._handleServerResponse);
     return this._like;
   }
 
-  deleteLike(obj) {
-    this._deleteLike = fetch(`${this._url}/cards/${obj._id}/likes`, {
+  deleteLike(id) {
+    this._deleteLike = fetch(`${this._url}/cards/${id}/likes`, {
       method: 'DELETE',
       headers: this._headers,
     }).then(this._handleServerResponse);
