@@ -22,18 +22,30 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
 
+  const fetchCards = async () => {
+    try {
+      const res = await api.getCards();
+      setCards(...cards, res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchProfile = async () => {
+    try {
+      const res = await api.getProfile();
+      setCurrentUser(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   React.useEffect(() => {
-    api
-      .getCards()
-      .then((res) => setCards(...cards, res))
-      .catch((err) => console.log(err));
+    fetchCards();
   }, []);
 
   React.useEffect(() => {
-    api
-      .getProfile()
-      .then((res) => setCurrentUser(res))
-      .catch((err) => console.log(err));
+    fetchProfile();
   }, []);
 
   const handleCardClick = (card) => {
@@ -60,52 +72,62 @@ function App() {
     setSelectedCard({});
   };
 
-  const handleUpdateUser = (name, about) => {
-    api
-      .setProfile(name, about)
-      .then((res) => {
-        setCurrentUser(res);
-        closeAllPopups();
-      })
-      .catch((err) => console.log(err));
+  const handleUpdateUser = async (name, about) => {
+    try {
+      const res = await api.setProfile(name, about);
+      setCurrentUser(res);
+      closeAllPopups();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const handleUpdateAvatar = (avatar) => {
-    api
-      .setAvatar(avatar)
-      .then((res) => {
-        setCurrentUser(res);
-        closeAllPopups();
-      })
-      .catch((err) => console.log(err));
+  const handleUpdateAvatar = async (avatar) => {
+    try {
+      const res = await api.setAvatar(avatar);
+      setCurrentUser(res);
+      closeAllPopups();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const handleCardLike = (card) => {
+  const handleAddPlaceSubmit = async (title, link) => {
+    try {
+      const res = await api.addCard(title, link);
+      setCards([res, ...cards]);
+      closeAllPopups();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleCardLike = async (card) => {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
     isLiked
-      ? api.deleteLike(card._id, !isLiked).then((newCard) => {
-          setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-        })
-      : api.addLike(card._id, !isLiked).then((newCard) => {
-          setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-        });
+      ? api
+          .deleteLike(card._id, !isLiked)
+          .then((newCard) => {
+            setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+          })
+          .catch((err) => console.log(err))
+      : api
+          .addLike(card._id, !isLiked)
+          .then((newCard) => {
+            setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+          })
+          .catch((err) => console.log(err));
   };
 
-  const handleCardDelete = (card) => {
-    api.deleteCard(card._id).then((newArray) => {
+  const handleCardDelete = async (card) => {
+    try {
+      await api.deleteCard(card._id);
       setCards((newArray) => newArray.filter((item) => card._id !== item._id));
-    });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const handleAddPlaceSubmit = (title, link) => {
-    api
-      .addCard(title, link)
-      .then((newCard) => {
-        setCards([newCard, ...cards]);
-        closeAllPopups();
-      })
-      .catch((err) => console.log(err));
-  };
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
