@@ -8,9 +8,12 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    onAddPlace(title, link);
-    setLink('');
-    setTitle('');
+    onAddPlace(title, link)
+      .then(() => {
+        setLink('');
+        setTitle('');
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <PopupWithForm
