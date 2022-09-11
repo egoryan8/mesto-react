@@ -8,13 +8,14 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    onAddPlace(title, link)
-      .then(() => {
-        setLink('');
-        setTitle('');
-      })
-      .catch((err) => console.log(err));
+    onAddPlace(title, link);
   };
+
+  React.useEffect(() => {
+    setLink('');
+    setTitle('');
+  }, [isOpen]);
+
   return (
     <PopupWithForm
       title="Новое место"
@@ -34,7 +35,7 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
             required
             minLength="2"
             maxLength="30"
-            value={title}
+            value={title || ''}
             onChange={(e) => setTitle(e.target.value)}
           />
           <span className="form__item-error place-name-input-error"></span>
@@ -47,7 +48,7 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
             name="link"
             placeholder="Ссылка на картинку"
             required
-            value={link}
+            value={link || ''}
             onChange={(e) => setLink(e.target.value)}
           />
           <span className="form__item-error place-link-input-error"></span>

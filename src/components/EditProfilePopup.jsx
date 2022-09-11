@@ -10,13 +10,14 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
   React.useEffect(() => {
     setName(currentUser.name);
     setAbout(currentUser.about);
-  }, [currentUser]);
+  }, [currentUser, isOpen]);
 
   function handleSubmit(e) {
     e.preventDefault();
 
     onUpdateUser(name, about);
   }
+
   return (
     <PopupWithForm
       title="Редактировать профиль"
@@ -36,7 +37,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
             required
             minLength="2"
             maxLength="20"
-            value={name}
+            value={name || ''}
             onChange={(e) => setName(e.target.value)}
           />
           <span className="form__item-error profile-name-input-error"></span>
@@ -51,7 +52,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
             required
             minLength="2"
             maxLength="200"
-            value={about}
+            value={about || ''}
             onChange={(e) => setAbout(e.target.value)}
           />
           <span className="form__item-error profile-status-input-error"></span>
