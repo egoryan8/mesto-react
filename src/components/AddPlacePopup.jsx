@@ -9,6 +9,8 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
     e.preventDefault();
 
     onAddPlace(title, link);
+    setLink('');
+    setTitle('');
   };
   return (
     <PopupWithForm
